@@ -1,0 +1,13 @@
+JSX =>Javascript XML (data format)
+JSX example : (
+    <div>
+        <h1>Title</h1>
+        <p>Description</p>
+    </div>
+)
+
+Babel => Js compiler 
+Babel command example : babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch	//We use this command for compiling js code 
+
+
+props and states // 

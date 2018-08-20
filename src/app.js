@@ -1,42 +1,38 @@
+
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {BrowserRouter,Route, Switch} from 'react-router-dom'
+import {Provider} from 'react-redux'
+import AppRouter from './routers/AppRouter'
+import configureStore from './store/configureStore'
+import {addExpense,editExpense,removeExpense} from './actions/expenses'
+import {setTextFilter} from './actions/filters'
+import getVisibleExpenses from './selectors/expenses'
 import 'normalize.css/normalize.css'
 import './styles/styles.scss'
+import 'react-dates/lib/css/_datepicker.css'
 
-const ExpenseDashboardPage=()=>(
-    <div>This is from my dashboard</div>
-)
+const store = configureStore()
 
-const AddExpensePage=()=>(
-    <div>This is my add expense dashboard</div>
-)
-const EditExpensePage=()=>(
-    <div>This is my edit expense dashboard</div>
-)
-const HelpPage=()=>(
-    <div>This is my help dashboard</div>
-)
-const NotFoundPage=()=>(
-    <div>404 page !</div>
-)
-const routes=(
-    <BrowserRouter>
-        <Switch>
-            <Route path="/" component={ExpenseDashboardPage} exact={true}/>
-            <Route path="/create" component={AddExpensePage} exact={true}/>
-            <Route path="/edit" component={EditExpensePage} exact={true}/>
-            <Route path="/help" component={HelpPage} exact={true}/>
-            <Route component={NotFoundPage}/>
-        </Switch>    
-    </BrowserRouter>
-)
+store.subscribe(()=>{
+    const state = store.getState()
+    const visibleExpenses = getVisibleExpenses(state.expenses,state.filter)
+})
+// store.dispatch(addExpense({description:'Home Rent Bill',amount:100}))
+// store.dispatch(addExpense({description:'Water Bill',amount:200}))
+// store.dispatch(addExpense({description:'Gas Bill',amount:1500,createdAt:1000}))
 
 
-console.log("App.js is running")
+
+
+
+
 const appRoot  = document.getElementById('app')
-
-ReactDOM.render(routes,appRoot)
+const jsx = (
+    <Provider store={store}>
+        <AppRouter/>
+    </Provider>
+)
+ReactDOM.render(jsx,appRoot)
 
 
 

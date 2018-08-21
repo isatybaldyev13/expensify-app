@@ -13,4 +13,4 @@ Babel command example : babel src/app.js --out-file=public/scripts/app.js --pres
 props and states // 
 
 //redux for saving state and us it where we want 
-//moment and react-dates library fo time 
+//moment and react-dates library for time 
